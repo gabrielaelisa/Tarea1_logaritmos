@@ -26,6 +26,11 @@ public:
     {
         return m_type;
     }
+    void * val()
+    {
+        return (void *) m_ptr;
+    }
+
     private:
         DATA_TYPE m_type;
         void *m_ptr;
@@ -50,6 +55,29 @@ public:
      map<string, Value> mymap(){
         return fila;
     }
+    // esta es la funcion que serializa Nodo a una lines
+    // se utiliza en la implementacion de la clase database
+    string como_linea(){
+        map<string, Value>::iterator it;
+        string mystr;
+
+        for ( it = fila.begin(); it != fila.end(); it++ )
+        {
+            mystr.append(it->first);
+            mystr.append(": ");
+            Value::DATA_TYPE type = it->second.type();
+            switch (type) {
+                case Value::DATA_TYPE::INT:
+                mystr.append(to_string(*(int*)it->second.val()));
+                break;
+                case Value::DATA_TYPE::STRING:
+                mystr.append(*(string*)(it->second.val()));
+                break;
+            }
+            mystr.append(", ");
+        }
+        return mystr;
+    }
 
 };
 
@@ -60,7 +88,9 @@ int main()
     Value myvals[]= {Value((int) 1), Value("19136938-6"), Value((int)1000)};
     Nodo * mynodo= new Nodo(keys, myvals, 3);
     bool is_in_map = mynodo->mymap().count("rut");
+    string nodoline= mynodo->como_linea();
     cout<<"el resultado de la llave es " << is_in_map;
+    cout<<"\n el resultado de la llave es " <<nodoline;
     return 0;
 
 }
