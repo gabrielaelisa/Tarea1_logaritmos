@@ -14,12 +14,13 @@ public:
         STRING,
         INT
     };
+    
     // existen dos constructores, uno para el type string,
     // otro para el type int
     Value(int value)
         : m_type(DATA_TYPE::INT), m_ptr(new int(value)){}
-    Value(std::string& value)
-        : m_type(DATA_TYPE::STRING), m_ptr(new std::string(value)){}
+    Value(const string & value)
+        : m_type(DATA_TYPE::STRING), m_ptr(new string(value)){}
 
      DATA_TYPE type()
     {
@@ -37,26 +38,29 @@ columnas y otra de valores */
 class Nodo {
 public:
     map<string, Value> fila;
+    
+    Nodo(string column[], Value value[], int len){
+        for (int i=0; i< len; i++){
+            string key= column[i];
+            Value val= value[i];
+            fila.insert(make_pair(key, val));
 
-    Nodo(list<string> column, list<Value> value) {
-
-        int len = column.size();
-        for(int i=0; i< len; i++){
-            string key= column.front();
-            column.pop_front();
-            Value::DATA_TYPE type = value.front().type();
-            switch (type) {
-                case Value::DATA_TYPE::INT:
-                fila.insert(make_pair(key, value.front()));
-                break;
-
-                case Value::DATA_TYPE::STRING:
-                fila.insert(make_pair(key, value.front()));
-                break;
-            }
-            value.pop_front();
-
-        
+        }
     }
+     map<string, Value> mymap(){
+        return fila;
     }
+
 };
+
+int main()
+
+{
+    string keys[]={"id", "rut", "puntosAcumulados"};
+    Value myvals[]= {Value((int) 1), Value("19136938-6"), Value((int)1000)};
+    Nodo * mynodo= new Nodo(keys, myvals, 3);
+    bool is_in_map = mynodo->mymap().count("rut");
+    cout<<"el resultado de la llave es " << is_in_map;
+    return 0;
+
+}
