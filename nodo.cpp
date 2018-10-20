@@ -93,7 +93,7 @@ class Database
     // escribe una linea en el archivo
     void add_nodo(Nodo * nodo){
         string new_line= nodo->como_linea();
-        myfile.open ("example.txt");
+        myfile.open ("p1.txt");
         myfile << new_line.append("\n");
         myfile.close();
     }
