@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <list>
-
+#include <fstream>
 
 using namespace std;
 //clase que contiene un atributo o string, o int
@@ -38,7 +38,7 @@ public:
 
 /* clase nodo, esta es la clase del enunciado,
 tiene como unico atributo un diccionario,
-en el constructor recibe como input dos listas una de llaves de 
+en el constructor recibe como input dos arreglos una de llaves de 
 columnas y otra de valores */
 class Nodo {
 public:
@@ -55,7 +55,7 @@ public:
      map<string, Value> mymap(){
         return fila;
     }
-    // esta es la funcion que serializa Nodo a una lines
+    // esta es la funcion que serializa Nodo a una linea
     // se utiliza en la implementacion de la clase database
     string como_linea(){
         map<string, Value>::iterator it;
@@ -80,6 +80,26 @@ public:
     }
 
 };
+/* clase database, permite agregar nodos 
+primera implementacion es solamente un archivo de texto*/
+class Database
+{
+    ofstream myfile;
+    // constructor de database, solo inicializa un archivo vacío
+    Database(){
+        myfile.open ("p1.txt");
+        myfile.close();
+    }
+    // escribe una linea en el archivo
+    void add_nodo(Nodo * nodo){
+        string new_line= nodo->como_linea();
+        myfile.open ("example.txt");
+        myfile << new_line.append("\n");
+        myfile.close();
+    }
+
+
+};
 
 int main()
 
@@ -90,7 +110,7 @@ int main()
     bool is_in_map = mynodo->mymap().count("rut");
     string nodoline= mynodo->como_linea();
     cout<<"el resultado de la llave es " << is_in_map;
-    cout<<"\n el resultado de la llave es " <<nodoline;
+    cout<<"\n el resultado de la linea es " <<nodoline;
     return 0;
 
 }
