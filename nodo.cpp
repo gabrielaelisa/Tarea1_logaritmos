@@ -20,7 +20,14 @@ public:
         : m_type(DATA_TYPE::INT), m_ptr(new int(value)){}
     Value(std::string& value)
         : m_type(DATA_TYPE::STRING), m_ptr(new std::string(value)){}
-  
+
+     DATA_TYPE type()
+    {
+        return m_type;
+    }
+    private:
+        DATA_TYPE m_type;
+        void *m_ptr;
 };
 
 /* clase nodo, esta es la clase del enunciado,
@@ -31,7 +38,7 @@ class Nodo {
 public:
     map<string, Value> fila;
 
-    Nodo(list<int> column, list<Value> value) {
+    Nodo(list<string> column, list<Value> value) {
 
         int len = column.size();
         for(int i=0; i< len; i++){
@@ -40,11 +47,11 @@ public:
             Value::DATA_TYPE type = value.front().type();
             switch (type) {
                 case Value::DATA_TYPE::INT:
-                fila.insert(std::make_pair<string,int>(key, value.front()));
+                fila.insert(make_pair(key, value.front()));
                 break;
 
                 case Value::DATA_TYPE::STRING:
-                fila.insert(std::make_pair<string,string>(key, value.front()));
+                fila.insert(make_pair(key, value.front()));
                 break;
             }
             value.pop_front();
@@ -52,4 +59,4 @@ public:
         
     }
     }
-}
+};
