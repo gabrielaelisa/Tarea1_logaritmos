@@ -43,6 +43,7 @@ columnas y otra de valores */
 class Nodo {
 public:
     map<string, Value> fila;
+    int mylen;
 
     Nodo(string column[], Value value[], int len) {
         for (int i = 0; i < len; i++) {
@@ -51,6 +52,7 @@ public:
             fila.insert(make_pair(key, val));
 
         }
+        mylen=len;
     }
 
     map<string, Value> mymap() {
@@ -101,6 +103,11 @@ class Database {
         myfile.open("p1.txt");
         myfile << new_line.append("\n");
         myfile.close();
+    }
+
+    // recibe la llave de la columna a ordenar
+    // y el tamaño de la memoria principal
+    void ordenar(string & s, unsigned long long M){
     }
 
 
