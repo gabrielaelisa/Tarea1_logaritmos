@@ -43,6 +43,7 @@ columnas y otra de valores */
 class Nodo {
 public:
     map<string, Value> fila;
+    int filalen;
     
     Nodo(string column[], Value value[], int len){
         for (int i=0; i< len; i++){
@@ -51,6 +52,7 @@ public:
             fila.insert(make_pair(key, val));
 
         }
+        filalen=len;
     }
      map<string, Value> mymap(){
         return fila;
@@ -60,6 +62,7 @@ public:
     string como_linea(){
         map<string, Value>::iterator it;
         string mystr;
+        int l=0;
 
         for ( it = fila.begin(); it != fila.end(); it++ )
         {
@@ -74,7 +77,9 @@ public:
                 mystr.append(*(string*)(it->second.val()));
                 break;
             }
-            mystr.append(", ");
+            if(l<filalen-1)
+                mystr.append(", ");
+            l++;
         }
         return mystr;
     }
@@ -97,7 +102,11 @@ class Database
         myfile << new_line.append("\n");
         myfile.close();
     }
+    //recibe como parametro el string que corresponde a la llave 
+    //por la cual se ordenara ascendentemente el archivo
+    void ordenar(string & s){
 
+    }
 
 };
 
