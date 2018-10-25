@@ -7,6 +7,22 @@
 
 using namespace std;
 
+class Estructura {
+public:
+    virtual void add_nodo(Nodo *nodo);
+    virtual void ordenar(string &atributo, long long l, long long r);
+};
+
+class EstructuraArchivo: public Estructura {
+public:
+    void add_nodo(Nodo *nodo) {
+
+    }
+
+private:
+    ofstream file;
+};
+
 //clase que contiene un atributo o string, o int
 class Value {
 public:
@@ -126,7 +142,7 @@ class Database {
 
             merge(arr, l, m, r);
         } else {
-            estructura.ordenar();
+            estructura.ordenar(atributo, l, r);
         }
     }
 
