@@ -106,14 +106,18 @@ class Database {
 
 };
 
-int main() {
+int main(int argc, char *argv[]) {
+    if (argc == 3)
+        const long long M = stoll(argv[2]);
+    else
+        const long long M = 100000;
     string keys[] = {"id", "rut", "puntosAcumulados"};
     Value myvals[] = {Value((int) 1), Value("19136938-6"), Value((int) 1000)};
     Nodo *mynodo = new Nodo(keys, myvals, 3);
     bool is_in_map = mynodo->mymap().count("rut");
     string nodoline = mynodo->como_linea();
     cout << "el resultado de la llave es " << is_in_map;
-    cout << "\n el resultado de la linea es " << nodoline;
+    cout << "\n el resultado de la linea es " << nodoline << endl;
     return 0;
 
 }
