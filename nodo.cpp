@@ -7,6 +7,22 @@
 
 using namespace std;
 
+class Estructura {
+public:
+    virtual void add_nodo(Nodo *nodo);
+    virtual void ordenar(string &atributo, long long l, long long r);
+};
+
+class EstructuraArchivo: public Estructura {
+public:
+    void add_nodo(Nodo *nodo) {
+
+    }
+
+private:
+    ofstream file;
+};
+
 //clase que contiene un atributo o string, o int
 class Value {
 public:
@@ -90,26 +106,44 @@ public:
 primera implementacion es solamente un archivo de texto*/
 class Database {
     ofstream myfile;
+    Estructura * estructura;
 
     // constructor de database, solo inicializa un archivo vacío
     Database() {
+        estructura = new Estructura();
+        /*
         myfile.open("p1.txt");
         myfile.close();
+         */
     }
 
     // escribe una linea en el archivo
     void add_nodo(Nodo *nodo) {
+        estructura->add_nodo(nodo);
+        /*
         string new_line = nodo->como_linea();
         myfile.open("p1.txt");
         myfile << new_line.append("\n");
         myfile.close();
+         */
     }
 
     // recibe la llave de la columna a ordenar
     // y el tamaño de la memoria principal
-    void ordenar(string & s, unsigned long long M){
+    void ordenar(string & atributo, long long l, long long r, unsigned long long M) {
+        if (r - l >= M) {
+            // Same as (l+r)/2, but avoids overflow for
+            // large l and h
+            int m = l + (r - l) / 2;
 
+            // Sort first and second halves
+            ordenar(estructura, l, m);
+            ordenar(estructura, m + 1, r);
 
+            merge(arr, l, m, r);
+        } else {
+            estructura.ordenar(atributo, l, r);
+        }
     }
 
 
@@ -117,9 +151,9 @@ class Database {
 
 int main(int argc, char *argv[]) {
     if (argc == 3)
-        const long long M = stoll(argv[2]);
+        const unsigned long long M = stoll(argv[2]);
     else
-        const long long M = 100000;
+        const unsigned long long M = 100000;
     string keys[] = {"id", "rut", "puntosAcumulados"};
     Value myvals[] = {Value((int) 1), Value("19136938-6"), Value((int) 1000)};
     Nodo *mynodo = new Nodo(keys, myvals, 3);
