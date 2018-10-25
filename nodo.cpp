@@ -105,6 +105,11 @@ class Database
     //recibe como parametro el string que corresponde a la llave 
     //por la cual se ordenara ascendentemente el archivo
     void ordenar(string & s){
+        int j,i= 0 ;
+        char *file = "p1.txt";
+        ifstream txt(file);
+
+
 
     }
 
