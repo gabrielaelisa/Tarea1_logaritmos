@@ -1,16 +1,17 @@
+#include <utility>
+
 #include "Estructura.h"
 
-EstructuraArchivo::EstructuraArchivo(string filename) : file(filename), open(false) {}
+EstructuraArchivo::EstructuraArchivo(string filename) : filename(std::move(filename)), open(false) {}
 
 void EstructuraArchivo::add_nodo(Nodo *nodo) {
-    ofstream f;
     string new_line = nodo->como_linea();
-    f.open(file);
-    f << new_line << endl;
+    outfile.open(filename);
+    outfile << new_line << endl;
     f.close();
 }
 
-void EstructuraArchivo::ordenar(string atributo, long long l, long long r) {
+void EstructuraArchivo::ordenar(string atributo, long long M) {
     if (!open) {
         f.open(file);
     }
