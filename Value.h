@@ -23,6 +23,11 @@ public:
 
     void *val();
 
+    /* Compara con otro valor del mismo tipo, retorna 1 si el valor con el cual se compara es menor, 0 si son iguales
+     * y -1 si es mayor
+     */
+    int compare(Value v);
+
 private:
     DATA_TYPE m_type;
     void *m_ptr;
