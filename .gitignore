@@ -1,3 +1,8 @@
+# Proyecto
+mainP1
+cmake-build-debug/
+.idea/
+
 # Prerequisites
 *.d
 
