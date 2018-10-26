@@ -15,12 +15,31 @@ public:
 
 class EstructuraArchivo: public Estructura {
 public:
+    EstructuraArchivo(string filename) {
+        file = filename;
+    }
     void add_nodo(Nodo *nodo) {
-
+        ofstream f;
+        string new_line = nodo->como_linea();
+        f.open(file);
+        f << new_line << endl;
+        f.close();
+    }
+    void ordenar(string atributo, long long M) {
+        if (!open) {
+            f.open(file);
+        }
+        long long i = 0;
+        string line;
+        while (i < M) {
+            getline(f, line);
+            i++
+        }
     }
 
 private:
-    ofstream file;
+    string file;
+    bool open = false;
 };
 
 //clase que contiene un atributo o string, o int
@@ -137,8 +156,8 @@ class Database {
             int m = l + (r - l) / 2;
 
             // Sort first and second halves
-            ordenar(estructura, l, m);
-            ordenar(estructura, m + 1, r);
+            ordenar(atributo, l, m, M);
+            ordenar(atributo, m + 1, r);
 
             merge(arr, l, m, r);
         } else {
