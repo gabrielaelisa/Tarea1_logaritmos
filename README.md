@@ -20,5 +20,9 @@ $ comando pulento
 Para ejecutar se usa el siguiente comando:
 
 ```
-$ otro comando pulento
+$ cmake .
+```
+
+```
+$ cmake --build .
 ```
