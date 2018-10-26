@@ -28,3 +28,7 @@ void EstructuraArchivo::ordenar(string atributo, long long M) {
         i++;
     }
 }
+
+/* implementacion del constructor de btree*/
+/* por razones de implementacion ausmimos que B cabe 10000 en M*/
+EstructuraBtree::EstructuraBtree( long long M, string atr): B(M/ 10000), atributo(atr) {}
