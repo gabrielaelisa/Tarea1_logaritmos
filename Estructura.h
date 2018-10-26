@@ -26,5 +26,15 @@ private:
     bool open;
 };
 
+class EstructuraBtree: public Estructura {
 
+public:
+    
+    //constructor
+    explicit EstructuraBtree();
+
+    void add_nodo(Nodo *nodo);
+
+    void ordenar();
+}
 #endif //TAREA1_LOGARITMOS_ESTRUCTURA_H
