@@ -8,7 +8,7 @@
 class Estructura {
 public:
     virtual void add_nodo(Nodo *nodo) = 0;
-    virtual void ordenar(string &atributo, long long l, long long r) = 0;
+    virtual void ordenar(string &atributo, long long M) = 0;
 };
 
 class EstructuraArchivo: public Estructura {
@@ -19,10 +19,12 @@ public:
 
     void add_nodo(Nodo *nodo);
 
-    void ordenar(string atributo, long long l, long long r);
+    void ordenar(string atributo, long long M);
 
 private:
-    string file;
+    ofstream outfile;
+    ifstream infile;
+    string filename;
     bool open;
 };
 
