@@ -30,22 +30,21 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
     string line;
 
     // mapa con los nodos, el cual se ordena cada vez que se inserta un elemento
-    map<Value, Nodo, cmpByValueCompare> nodos;
+    map<Value, Nodo*, cmpByValueCompare> nodos;
 
     while (i < M) {
         getline(infile, line);
-        Nodo n = Nodo::como_nodo(line);
-        map<string, Value> mapa = n.mymap();
-        cout << atributo << endl;
-        //Value v = mapa[atributo];
-        //cout << v.val() << endl;
-        //nodos[n.mymap()[atributo]] = n; // la llave es el atributo por el cual se ordena
+        Nodo *n = new Nodo(line);
+        map<string, Value> mapa = n->mymap();
+        Value v;
+        v = mapa[atributo];
+        nodos[v] = n; // la llave es el atributo por el cual se ordena
         i++;
     }
 
     // se escriben los nodos en el archivo
     for (auto &nodo : nodos) {
-        outfile << nodo.second.como_linea() << endl;
+        outfile << nodo.second->como_linea() << endl;
     }
 }
 
