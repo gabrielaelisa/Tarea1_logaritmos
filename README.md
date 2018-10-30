@@ -7,17 +7,10 @@ Tarea 1 del curso Diseño y Análisis de Algoritmos
 * Gabriela Mendoza
 
 ## Requisitos
-La tarea fue resuelta en C++. Se necesitan cosas.
+La tarea fue resuelta en C++11. Para compilar se requiere CMake versión >= 3.10.2.
 
 ## Compilación
-Para compilar se debe ejecutar el siguiente comando:
-
-```
-$ comando pulento
-```
-
-## Ejecución
-Para ejecutar se usa el siguiente comando:
+Para compilar se deben ejecutar los siguientes comandos:
 
 ```
 $ cmake .
@@ -25,4 +18,14 @@ $ cmake .
 
 ```
 $ cmake --build .
+```
+
+Esto genera los ejecutables para cada una de las preguntas.
+## Ejecución
+Para ejecutar se usa el siguiente comando para cada pregunta:
+### P1
+Recibe N, que indica ingresar 10^N datos, y opcionalmente M (default = 100000) cantidad de memoria.
+Ej:
+```
+$ ./mainP1 6
 ```
