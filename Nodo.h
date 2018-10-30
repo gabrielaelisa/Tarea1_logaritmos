@@ -17,14 +17,14 @@ class Nodo {
 public:
     Nodo(string column[], Value value[], int len);
 
+    // constructor que deserializa una linea creada con el metodo como_linea
+    Nodo(string line);
+
     map<string, Value> mymap();
 
     // esta es la funcion que serializa Nodo a una linea
     // se utiliza en la implementacion de la clase database
     string como_linea();
-
-    // funcion para deserializar una linea y obtener un nodo
-    static Nodo como_nodo(string s);
 
 private:
     map<string, Value> fila;
