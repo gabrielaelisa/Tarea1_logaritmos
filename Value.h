@@ -8,13 +8,16 @@ using namespace std;
 //clase que contiene un atributo o string, o int
 class Value {
 public:
+
     enum DATA_TYPE {
         STRING,
         INT
     };
 
-    // existen dos constructores, uno para el type string,
+    // existen tres constructores, uno default, uno para el type string,
     // otro para el type int
+    Value();
+
     explicit Value(int value);
 
     explicit Value(const string &value);

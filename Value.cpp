@@ -1,6 +1,8 @@
 #include <stdexcept>
 #include "Value.h"
 
+Value::Value() {}
+
 Value::Value(int value) : m_type(DATA_TYPE::INT), m_ptr(new int(value)) {}
 
 Value::Value(const string &value) : m_type(DATA_TYPE::STRING), m_ptr(new string(value)) {}
