@@ -8,7 +8,7 @@
 class Estructura {
 public:
     virtual void add_nodo(Nodo *nodo) = 0;
-    virtual void ordenar(string &atributo, long long M) = 0;
+    virtual void ordenar(const string &atributo, long long M) = 0;
 };
 
 class EstructuraArchivo: public Estructura {
@@ -17,9 +17,9 @@ public:
 
     explicit EstructuraArchivo(string filename);
 
-    void add_nodo(Nodo *nodo);
+    void add_nodo(Nodo *nodo) override;
 
-    void ordenar(string atributo, long long M);
+    void ordenar(const string &atributo, long long M) override;
 
 private:
     ofstream outfile;
@@ -38,12 +38,14 @@ public:
     void add_nodo(Nodo *nodo);
     
     /* buscaremos una valor perteneciente a la llave
-    ej id, Value(506)*/
+     * ej id, Value(506)
+     */
     void buscar(string key, Value* val);
 
-    /* no hace nada, el btree ya esta ordenado 
-    por el atributo que le pasamos en el constructor*/
-    void ordenar(string atributo , long long M);
+    /* no hace nada, el btree ya esta ordenado
+     * por el atributo que le pasamos en el constructor
+     */
+    void ordenar(const string &atributo , long long M);
 
 private:
     //tamaño del bloque
@@ -51,5 +53,5 @@ private:
     string atributo;
     
 
-}
+}*/
 #endif //TAREA1_LOGARITMOS_ESTRUCTURA_H

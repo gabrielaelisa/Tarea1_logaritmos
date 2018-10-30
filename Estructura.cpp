@@ -11,7 +11,7 @@ void EstructuraArchivo::add_nodo(Nodo *nodo) {
     outfile.close();
 }
 
-void EstructuraArchivo::ordenar(string atributo, long long M) {
+void EstructuraArchivo::ordenar(const string &atributo, long long M) {
     if (!open) {
         infile.open(filename);
     }
@@ -20,15 +20,14 @@ void EstructuraArchivo::ordenar(string atributo, long long M) {
     map<Value, Nodo> nodos;
     while (i < M) {
         getline(infile, line);
-        // deserializar la linea para obtener un nodo
         string column;
-        Nodo *n;
-        n = new Nodo(&column, new Value(0), 10);
-        nodos[n->mymap()[atributo]] = *n;
+        Nodo n = Nodo::como_nodo(line);
+        nodos[n.mymap()[atributo]] = n;
         i++;
     }
 }
 
-/* implementacion del constructor de btree*/
-/* por razones de implementacion ausmimos que B cabe 10000 en M*/
+/* implementacion del constructor de btree
+ * por razones de implementacion ausmimos que B cabe 10000 en M
+ */
 EstructuraBtree::EstructuraBtree( long long M, string atr): B(M/ 10000), atributo(atr) {}
