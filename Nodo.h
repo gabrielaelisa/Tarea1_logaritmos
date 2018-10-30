@@ -23,6 +23,9 @@ public:
     // se utiliza en la implementacion de la clase database
     string como_linea();
 
+    // funcion para deserializar una linea y obtener un nodo
+    static Nodo como_nodo(string s);
+
 private:
     map<string, Value> fila;
     int mylen;
