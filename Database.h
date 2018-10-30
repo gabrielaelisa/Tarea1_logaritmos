@@ -7,7 +7,7 @@
 class Database {
 
 public:
-    Database(Estructura *estructura);
+    explicit Database(Estructura *estructura);
     
     void add_nodo(Nodo *nodo);
 
