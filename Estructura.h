@@ -53,5 +53,5 @@ private:
     string atributo;
     
 
-}*/
+};
 #endif //TAREA1_LOGARITMOS_ESTRUCTURA_H

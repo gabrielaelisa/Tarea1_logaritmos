@@ -21,6 +21,6 @@ void Database::ordenar(const string &atributo, long long l, long long r, long lo
 
         merge(atributo, l, m, r, M);
     } else {
-        estructura.ordenar(atributo, M);
+        estructura->ordenar(atributo, M);
     }
 }
