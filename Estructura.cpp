@@ -1,4 +1,5 @@
 #include <utility>
+#include <iostream>
 
 #include "Estructura.h"
 
@@ -34,7 +35,11 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
     while (i < M) {
         getline(infile, line);
         Nodo n = Nodo::como_nodo(line);
-        nodos[n.mymap()[atributo]] = n; // la llave es el atributo por el cual se ordena
+        map<string, Value> mapa = n.mymap();
+        cout << atributo << endl;
+        //Value v = mapa[atributo];
+        //cout << v.val() << endl;
+        //nodos[n.mymap()[atributo]] = n; // la llave es el atributo por el cual se ordena
         i++;
     }
 
@@ -47,4 +52,4 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 /* implementacion del constructor de btree
  * por razones de implementacion ausmimos que B cabe 10000 en M
  */
-EstructuraBtree::EstructuraBtree( long long M, string atr): B(M/ 10000), atributo(atr) {}
+//EstructuraBtree::EstructuraBtree( long long M, string atr): B(M/ 10000), atributo(atr) {}
