@@ -15,11 +15,7 @@ void EstructuraArchivo::add_nodo(Nodo *nodo) {
 // Comparador que se basa en el metodo compare de Value
 struct cmpByValueCompare {
     bool operator()(const Value &a, const Value &b) const {
-        if (Value::compare(a, b) == -1)
-            return true;
-        else if (Value::compare(a, b) >= 0) {
-            return false;
-        }
+        return Value::compare(a, b) == -1;
     }
 };
 
@@ -37,7 +33,6 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 
     while (i < M) {
         getline(infile, line);
-        string column;
         Nodo n = Nodo::como_nodo(line);
         nodos[n.mymap()[atributo]] = n; // la llave es el atributo por el cual se ordena
         i++;
