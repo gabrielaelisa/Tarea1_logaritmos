@@ -4,6 +4,8 @@
 
 #include "Estructura.h"
 
+using namespace std;
+
 class Database {
 
 public:
