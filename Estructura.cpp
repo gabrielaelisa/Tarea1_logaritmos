@@ -7,9 +7,10 @@ EstructuraArchivo::EstructuraArchivo(string filename) : filename(std::move(filen
 
 void EstructuraArchivo::add_nodo(Nodo *nodo) {
     string new_line = nodo->como_linea();
-    outfile.open(filename);
+    if(!outfile.is_open()){
+        outfile.open(filename);
+    }
     outfile << new_line << endl;
-    outfile.close();
 }
 
 
