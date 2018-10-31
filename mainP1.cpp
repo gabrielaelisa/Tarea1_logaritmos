@@ -1,5 +1,6 @@
 #include <iostream>
 #include <math.h>
+#include <random>
 
 #include "Nodo.h"
 #include "Database.h"
@@ -15,13 +16,30 @@ using namespace std;
  * Ingresa 10^N datos
  */
 void agregarNodosADatabase(Database &D, int N) {
-    int rut = 9900000;
+    int rutBase = 999000;
+    int rutStep = 11;
+    int puntajeMaximo = 50000;
+    int cantidadDeElementos = static_cast<int>(pow(10, N));
+    int ruts[cantidadDeElementos];
+    int ids[cantidadDeElementos];
+    for (int i = 0; i < cantidadDeElementos; ++i) {
+        ids[i] = i + 1;
+        ruts[i] = rutBase + i * rutStep;
+    }
     string keys[] = {"id", "rut", "puntosAcumulados"};
-    int upperBound = pow(10,N);
-    for (int i = 1; i <= upperBound; i++){
-        int codigoVerificador = rand() % 10;
-        Value myvals[] = {Value(i),Value(to_string(rut++)+"-"+to_string(codigoVerificador)),Value(rand() % 10000)};
-        Nodo nuevoNodo(keys,myvals,3);
+    default_random_engine generator;
+    uniform_int_distribution<int> genCodVerRut(0, 9);
+    uniform_int_distribution<int> genPuntaje(0, puntajeMaximo);
+    for (int i = cantidadDeElementos - 1; i >= 0; i--) {
+        uniform_int_distribution<int> distribution(0, i);
+        int indiceRut = distribution(generator);
+        int indiceId = distribution(generator);
+        int rut = ruts[indiceRut];
+        int id = ids[indiceId];
+        ruts[indiceRut] = ruts[i];
+        ids[indiceId] = ids[i];
+        Value myvals[] = {Value(id), Value(to_string(rut) + "-" + to_string(genCodVerRut(generator))), Value(genPuntaje(generator))};
+        Nodo nuevoNodo(keys, myvals, 3);
         D.add_nodo(&nuevoNodo);
     }
 }
@@ -45,7 +63,7 @@ int main(int argc, char *argv[]) {
     EstructuraArchivo testEstructura("test_p1_c");
     Database testDatabase(&testEstructura);
 
-    agregarNodosADatabase(testDatabase,N);
+    agregarNodosADatabase(testDatabase, N);
 
     /*
     string keys[] = {"id", "rut", "puntosAcumulados"};
