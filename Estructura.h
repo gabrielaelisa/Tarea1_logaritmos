@@ -25,7 +25,6 @@ private:
     ofstream outfile;
     ifstream infile;
     string filename;
-    bool open;
 };
 
 class EstructuraBtree: public Estructura {

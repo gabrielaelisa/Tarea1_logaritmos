@@ -3,7 +3,7 @@
 
 #include "Estructura.h"
 
-EstructuraArchivo::EstructuraArchivo(string filename) : filename(std::move(filename)), open(false) {}
+EstructuraArchivo::EstructuraArchivo(string filename) : filename(std::move(filename)) {}
 
 void EstructuraArchivo::add_nodo(Nodo *nodo) {
     string new_line = nodo->como_linea();
@@ -22,10 +22,11 @@ struct cmpByValueCompare {
 };
 
 void EstructuraArchivo::ordenar(const string &atributo, long long M) {
-    if (!open) { // si no se han abierto los archivos se abren
+    // si no se han abierto los archivos se abren
+    if (!infile.is_open())
         infile.open(filename);
+    if (!outfile.is_open())
         outfile.open(filename);
-    }
 
     long long i = 0;
     string line;
