@@ -53,7 +53,7 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 /* implementacion del constructor de btree
  * por razones de implementacion ausmimos que B cabe 10000 en M
  */
-EstructuraBtree::EstructuraBtree(string atr): atributo(atr) {}
+EstructuraBtree::EstructuraBtree(string atr): root(NULL),atributo(atr) {}
 
  
 NodoBtree::NodoBtree(int _B, bool _hoja, string atributo) 
