@@ -134,6 +134,7 @@ void EstructuraArchivo::ordenar(const string &atributo, long long size) {
  * por razones de implementacion ausmimos que B cabe 10000 en M
  */
 EstructuraBtree::EstructuraBtree(string atr): root(NULL),atributo(atr) {}
+void EstructuraBtree::ordenar(const string &atributo , long long M){}
 
  
 NodoBtree::NodoBtree(int _B, bool _hoja, string _atributo) 
@@ -141,7 +142,7 @@ NodoBtree::NodoBtree(int _B, bool _hoja, string _atributo)
     // Copy the given minimum degree and leaf property 
     B=_B;
     hoja = _hoja; 
-    llaves = (Nodo **)malloc(sizeof(Nodo*)*(((B-1)/2)+1)); 
+    llaves = (Nodo **)malloc(sizeof(Nodo*)*((B-1)/2)); 
     hijos = new NodoBtree *[((B-1)/2)+1]; 
     n = 0; 
     atributo= _atributo;
