@@ -27,7 +27,8 @@ private:
     string filename;
 };
 
-class EstructuraBtree: public Estructura {
+class EstructuraBtree: public Estructura 
+{
 
 public:
     
@@ -39,7 +40,7 @@ public:
     /* buscaremos una valor perteneciente a la llave
      * ej id, Value(506)
      */
-    void buscar(string key, Value* val);
+    BtreeNode * buscar(string key, Value* val);
 
     /* no hace nada, el btree ya esta ordenado
      * por el atributo que le pasamos en el constructor
@@ -48,9 +49,33 @@ public:
 
 private:
     //tamaño del bloque
-    long long B;
+    int B= 1024; // 1 kbyte
+    int num; //número de bloques
     string atributo;
+    BtreeNode *root; // puntero al root node
     
 
+};
+
+// Nodo del Btree
+class BtreeNode 
+{ 
+    Nodo ** llaves;  // arreglo de llaves
+    int B; //rango de claves
+    BtreeNode ** hijos; // arreglo de punteros a hijos
+    int n;     // numero de llaves
+    bool hoja; //es verdadero si el nodo es una hoja 
+
+public: 
+    BtreeNode(int _B, bool _leaf);   // Constructor 
+    
+    BtreeNode *buscar(int k);
+
+    void insertNonFull(Nodo * nodo); 
+  
+    void splitChild(int i, BtreeNode *y);  
+  
+// con esto se puede acceder a campos privados del Btree
+friend class EstructuraBtree; 
 };
 #endif //TAREA1_LOGARITMOS_ESTRUCTURA_H
