@@ -56,7 +56,7 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 EstructuraBtree::EstructuraBtree(string atr): root(NULL),atributo(atr) {}
 
  
-NodoBtree::NodoBtree(int _B, bool _hoja, string atributo) 
+NodoBtree::NodoBtree(int _B, bool _hoja, string _atributo) 
 { 
     // Copy the given minimum degree and leaf property 
     B=_B;
@@ -64,6 +64,7 @@ NodoBtree::NodoBtree(int _B, bool _hoja, string atributo)
     llaves = (Nodo **)malloc(sizeof(Nodo*)*(((B-1)/2)+1)); 
     hijos = new NodoBtree *[((B-1)/2)+1]; 
     n = 0; 
+    atributo= _atributo;
 } 
 
 void EstructuraBtree::add_nodo(Nodo* nodo) 
@@ -86,8 +87,8 @@ void EstructuraBtree::add_nodo(Nodo* nodo)
             s->hijos[0] = root; 
             s->splitChild(0, root); 
 
-            Value newval= nodo->mymap.Find(atributo)->second;
-            Value thisval= (s->llaves[0])->mymap.Find(atributo)->second;
+            Value newval= (nodo->mymap()).find(atributo)->second;
+            Value thisval= (s->llaves[0])->mymap().find(atributo)->second;
             int i = 0; 
             //thisval < newval
             if (!thisval.compare(thisval,newval)) 
@@ -103,14 +104,14 @@ void EstructuraBtree::add_nodo(Nodo* nodo)
 //se inserta una nueva llave en este nodo, que no esta lleno
 void NodoBtree::insertNonFull(Nodo * nodo) 
 { 
-    Value newval= nodo->mymap.Find(atributo)->second;
+    Value newval= nodo->mymap().find(atributo)->second;
     int i = n-1; 
     if (hoja) 
     { 
         //encuentra la posicion de la nueva llave y realoca a los mayores
         while (i >= 0) 
         {   
-            Value thisval= llaves[i]->mymap.Find(atributo)->second;
+            Value thisval= llaves[i]->mymap().find(atributo)->second;
             if(!thisval.compare(thisval, newval))
                 break;
             llaves[i+1] = llaves[i]; 
@@ -125,7 +126,7 @@ void NodoBtree::insertNonFull(Nodo * nodo)
         // Find the child which is going to have the new key 
         while (i >= 0)
         {
-            Value thisval= llaves[i]->mymap.Find(atributo)->second;
+            Value thisval= llaves[i]->mymap().find(atributo)->second;
             if(!thisval.compare(thisval, newval))
                 break;
             i--;
@@ -134,7 +135,7 @@ void NodoBtree::insertNonFull(Nodo * nodo)
         if (hijos[i+1]->n == (B-1)/2) 
         { 
             splitChild(i+1, hijos[i+1]); 
-            Value thisval= llaves[i+1]->mymap.Find(atributo)->second;
+            Value thisval= llaves[i+1]->mymap().find(atributo)->second;
             if (!thisval.compare(thisval,newval)) 
                 i++; 
         } 
