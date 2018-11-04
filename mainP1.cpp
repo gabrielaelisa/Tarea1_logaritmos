@@ -48,8 +48,8 @@ void agregarNodosADatabase(Database &D, int N) {
 /*
  * Ejecuta el ordenamiento en la Database
  */
-void ordenarDatabase(Database &D, const string &atributo, long long M) {
-    D.ordenar(atributo, 0, D.getSize() - 1, M);
+void ordenarDatabase(Database &D, const string &atributo) {
+    D.ordenar(atributo);
 }
 
 /*
@@ -68,12 +68,12 @@ int main(int argc, char *argv[]) {
         M = stoull(argv[2]);
     }
 
-    EstructuraArchivo testEstructura("test_p1_c");
+    EstructuraArchivo testEstructura("test_p1_c", M);
     Database testDatabase(&testEstructura);
 
     agregarNodosADatabase(testDatabase, N);
 
-    ordenarDatabase(testDatabase, "id", M);
+    ordenarDatabase(testDatabase, "id");
 
     /*
     string keys[] = {"id", "rut", "puntosAcumulados"};

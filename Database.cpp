@@ -11,26 +11,8 @@ void merge(const string &atributo, long long l, long long m, long long r, long l
 
 }
 
-void Database::ordenar(const string &atributo, long long l, long long r, long long M) {
-    if (l == 0 && r == size-1)
-        estructura->startOrdenar();
-
-    if (r - l >= M) { // si el pedazo a ordenar es mayor o igual a M
-
-        long long m = l + (r - l) / 2;
-
-        // se ordenan ambas mitades
-        ordenar(atributo, l, m, M);
-        ordenar(atributo, m + 1, r, M);
-
-        merge(atributo, l, m, r, M);
-    } else {
-        estructura->ordenar(atributo, M);
-    }
-
-    if (l == 0 && r == size-1)
-        estructura->endOrdenar();
-
+void Database::ordenar(const string &atributo) {
+    estructura->ordenar(atributo, size);
 }
 
 long long Database::getSize() {

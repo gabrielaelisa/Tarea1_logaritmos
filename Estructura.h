@@ -8,29 +8,35 @@
 class Estructura {
 public:
     virtual void add_nodo(Nodo *nodo) = 0;
-    virtual void ordenar(const string &atributo, long long M) = 0;
-    virtual void startOrdenar() = 0;
-    virtual void endOrdenar() = 0;
+    virtual void ordenar(const string &atributo, long long size) = 0;
+
 };
 
 class EstructuraArchivo: public Estructura {
 
 public:
 
-    explicit EstructuraArchivo(string filename);
+    explicit EstructuraArchivo(string filename, long long M);
 
     void add_nodo(Nodo *nodo) override;
 
-    void ordenar(const string &atributo, long long M) override;
+    // size es la cantidad de nodos
+    void ordenar(const string &atributo, long long size) override;
 
-    void startOrdenar() override;
+    // algoritmo mergesort, el parametro first indica si es el primer paso de la recursion
+    void mergeSort(const string &atributo, long long l, long long r, bool first);
 
-    void endOrdenar() override;
+    // merge de mergesort
+    void merge(long long l, long long m, long long r);
+
+    // ordena un trozo de tamano menor que M
+    void ordenarTrozo(const string &atributo);
 
 private:
     ofstream outfile;
     ifstream infile;
     string filename;
+    long long M;
 };
 
 class EstructuraBtree: public Estructura {
