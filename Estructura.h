@@ -53,9 +53,9 @@ class NodoBtree
 public: 
     NodoBtree(int _B, bool _hoja, string _atributo);   // Constructor 
     
-    NodoBtree * buscar(string key, Value* val);
+    void insertar(Nodo * nodo); 
 
-    void insertNonFull(Nodo * nodo); 
+    Nodo * buscar(Nodo *nodo);
   
     void splitChild(int i, NodoBtree *y);  
   
@@ -73,10 +73,7 @@ public:
 
     void add_nodo(Nodo *nodo);
     
-    /* buscaremos una valor perteneciente a la llave
-     * ej id, Value(506)
-     */
-    NodoBtree * buscar(string key, Value* val);
+    Nodo * buscar(Nodo *nodo);
 
     /* no hace nada, el btree ya esta ordenado
      * por el atributo que le pasamos en el constructor

@@ -130,11 +130,13 @@ void EstructuraArchivo::ordenar(const string &atributo, long long size) {
 }
 
 
-/* implementacion del constructor de btree
- * por razones de implementacion ausmimos que B cabe 10000 en M
- */
 EstructuraBtree::EstructuraBtree(string atr): root(NULL),atributo(atr) {}
+
 void EstructuraBtree::ordenar(const string &atributo , long long M){}
+
+Nodo * EstructuraBtree::buscar(Nodo* nodo){
+    return (root == NULL)? NULL : root->buscar(nodo);
+}
 
  
 NodoBtree::NodoBtree(int _B, bool _hoja, string _atributo) 
@@ -172,18 +174,18 @@ void EstructuraBtree::add_nodo(Nodo* nodo)
             Value thisval= (s->llaves[0])->mymap().find(atributo)->second;
             int i = 0; 
             //thisval < newval
-            if (!thisval.compare(thisval,newval)) 
+            if (thisval.compare(thisval,newval)!=1) 
                 i++; 
-            s->hijos[i]->insertNonFull(nodo); 
+            s->hijos[i]->insertar(nodo); 
             root = s; // se cambia la raiz
         } 
         else 
-            root->insertNonFull(nodo); 
+            root->insertar(nodo); 
     } 
 } 
   
 //se inserta una nueva llave en este nodo, que no esta lleno
-void NodoBtree::insertNonFull(Nodo * nodo) 
+void NodoBtree::insertar(Nodo * nodo) 
 { 
     Value newval= nodo->mymap().find(atributo)->second;
     int i = n-1; 
@@ -193,7 +195,7 @@ void NodoBtree::insertNonFull(Nodo * nodo)
         while (i >= 0) 
         {   
             Value thisval= llaves[i]->mymap().find(atributo)->second;
-            if(!thisval.compare(thisval, newval))
+            if(thisval.compare(thisval, newval)!=1)
                 break;
             llaves[i+1] = llaves[i]; 
             i--; 
@@ -208,7 +210,7 @@ void NodoBtree::insertNonFull(Nodo * nodo)
         while (i >= 0)
         {
             Value thisval= llaves[i]->mymap().find(atributo)->second;
-            if(!thisval.compare(thisval, newval))
+            if(thisval.compare(thisval, newval)!=1)
                 break;
             i--;
         }
@@ -217,10 +219,10 @@ void NodoBtree::insertNonFull(Nodo * nodo)
         { 
             splitChild(i+1, hijos[i+1]); 
             Value thisval= llaves[i+1]->mymap().find(atributo)->second;
-            if (!thisval.compare(thisval,newval)) 
+            if (thisval.compare(thisval,newval)!=1) 
                 i++; 
         } 
-        hijos[i+1]->insertNonFull(nodo); 
+        hijos[i+1]->insertar(nodo); 
     } 
 } 
   
@@ -259,4 +261,27 @@ void NodoBtree::splitChild(int i, NodoBtree *y)
     llaves[i] = y->llaves[(B -2)/4]; 
   
     n = n + 1; 
+} 
+
+Nodo* NodoBtree::buscar(Nodo * nodo) 
+{ 
+    Value newval= nodo->mymap().find(atributo)->second; 
+    //buscar la primera llave mayor o igual al nodo
+    int i = 0;
+    while (i < n){
+        Value thisval= llaves[i]->mymap().find(atributo)->second; 
+        //newval>thisval
+        if(newval.compare(newval,thisval)!=1)
+            break;
+        i++; 
+    }
+    
+    
+    if (llaves[i]->equal(nodo)) 
+        return llaves[i]; 
+  
+    if (hoja == true) 
+        return NULL; 
+  
+    return hijos[i]->buscar(nodo); 
 } 
