@@ -1,7 +1,8 @@
 #include <iostream>
 #include <math.h>
 #include <random>
-
+#include <chrono>
+#include <ctime>
 #include "Nodo.h"
 #include "Database.h"
 
@@ -9,17 +10,15 @@
 using namespace std;
 
 
-// TODO: Adaptar esto cuando las Database existan de verdad
 /*
  * Pobla una Database dummy para la parte c)
  * Se basa en la estructura de la tabla Consumidor
- * Ingresa 10^N datos
  */
 void agregarNodosADatabase(Database &D, int N) {
     int rutBase = 999000;
     int rutStep = 11;
     int puntajeMaximo = 50000;
-    int cantidadDeElementos = static_cast<int>(pow(10, N));
+    int cantidadDeElementos = N;
     int ruts[cantidadDeElementos];
     int ids[cantidadDeElementos];
     for (int i = 0; i < cantidadDeElementos; ++i) {
@@ -62,28 +61,25 @@ int main(int argc, char *argv[]) {
         cout << "Falta ingresar N";
         return -1;
     }
-    int N = stoi(argv[1]);
+    int N = static_cast<int>(pow(10, stoi(argv[1])));
     long long M = 100000;
+    int pruebas = 10;
     if (argc == 3) {
         M = stoull(argv[2]);
     }
-
-    EstructuraArchivo testEstructura("test_p1_c", M);
-    Database testDatabase(&testEstructura);
-
-    agregarNodosADatabase(testDatabase, N);
-
-    ordenarDatabase(testDatabase, "id");
-
     /*
-    string keys[] = {"id", "rut", "puntosAcumulados"};
-    Value myvals[] = {Value((int) 1), Value("19136938-6"), Value((int) 1000)};
-    Nodo *mynodo = new Nodo(keys, myvals, 3);
-    bool is_in_map = (bool) mynodo->mymap().count("rut");
-    string nodoline = mynodo->como_linea();
-    cout << "el resultado de la llave es " << is_in_map << endl;
-    cout << "el resultado de la linea es " << nodoline << endl;
-    return 0;
+     * Primero, se hacen las pruebas de insercion
      */
+    cout << "Insertando " << to_string(N) << " elementos, en " << to_string(pruebas) << " pruebas" << endl;
+    for (int i = 0; i < pruebas; ++i) {
+        auto begin = std::chrono::high_resolution_clock::now();
+        EstructuraArchivo testEstructura("test_p1_c", M);
+        Database testDatabase(&testEstructura);
+        agregarNodosADatabase(testDatabase, N);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count() << "ns" << std::endl;
+    }
 
+
+    //ordenarDatabase(testDatabase, "id");
 }
