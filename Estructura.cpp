@@ -36,6 +36,7 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 
     while (i < M) {
         getline(infile, line);
+        if (line.empty()) break;
         Nodo *n = new Nodo(line);
         map<string, Value> mapa = n->mymap();
         Value v;
@@ -49,6 +50,13 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
         outfile << nodo.second->como_linea() << endl;
     }
 }
+
+void EstructuraArchivo::startOrdenar() {
+    outfile.seekp(0, std::ofstream::beg);
+    //outfile.close();
+}
+
+void EstructuraArchivo::endOrdenar() {}
 
 /* implementacion del constructor de btree
  * por razones de implementacion ausmimos que B cabe 10000 en M

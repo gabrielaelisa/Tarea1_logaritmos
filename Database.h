@@ -18,8 +18,11 @@ public:
      */
     void ordenar(const string &atributo, long long l, long long r, long long M);
 
+    long long getSize();
+
 private:
     Estructura *estructura;
+    long long size;
 };
 
 

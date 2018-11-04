@@ -44,6 +44,14 @@ void agregarNodosADatabase(Database &D, int N) {
     }
 }
 
+// TODO: esto deberia hacer mas que solo llamar a ordenar, como guardar el tiempo por ejemplo
+/*
+ * Ejecuta el ordenamiento en la Database
+ */
+void ordenarDatabase(Database &D, const string &atributo, long long M) {
+    D.ordenar(atributo, 0, D.getSize() - 1, M);
+}
+
 /*
  * Main recibira:
  * argv[1] = N , cantidad de datos a insertar
@@ -64,6 +72,8 @@ int main(int argc, char *argv[]) {
     Database testDatabase(&testEstructura);
 
     agregarNodosADatabase(testDatabase, N);
+
+    ordenarDatabase(testDatabase, "id", M);
 
     /*
     string keys[] = {"id", "rut", "puntosAcumulados"};

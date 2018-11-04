@@ -1,9 +1,10 @@
 #include "Database.h"
 
-Database::Database(Estructura *estructura) : estructura(estructura) {}
+Database::Database(Estructura *estructura) : estructura(estructura), size(0) {}
 
 void Database::add_nodo(Nodo *nodo) {
     estructura->add_nodo(nodo);
+    size++;
 }
 
 void merge(const string &atributo, long long l, long long m, long long r, long long M) {
@@ -11,6 +12,9 @@ void merge(const string &atributo, long long l, long long m, long long r, long l
 }
 
 void Database::ordenar(const string &atributo, long long l, long long r, long long M) {
+    if (l == 0 && r == size-1)
+        estructura->startOrdenar();
+
     if (r - l >= M) { // si el pedazo a ordenar es mayor o igual a M
 
         long long m = l + (r - l) / 2;
@@ -23,4 +27,12 @@ void Database::ordenar(const string &atributo, long long l, long long r, long lo
     } else {
         estructura->ordenar(atributo, M);
     }
+
+    if (l == 0 && r == size-1)
+        estructura->endOrdenar();
+
+}
+
+long long Database::getSize() {
+    return size;
 }

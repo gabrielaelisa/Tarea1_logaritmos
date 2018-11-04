@@ -9,6 +9,8 @@ class Estructura {
 public:
     virtual void add_nodo(Nodo *nodo) = 0;
     virtual void ordenar(const string &atributo, long long M) = 0;
+    virtual void startOrdenar() = 0;
+    virtual void endOrdenar() = 0;
 };
 
 class EstructuraArchivo: public Estructura {
@@ -20,6 +22,10 @@ public:
     void add_nodo(Nodo *nodo) override;
 
     void ordenar(const string &atributo, long long M) override;
+
+    void startOrdenar() override;
+
+    void endOrdenar() override;
 
 private:
     ofstream outfile;
