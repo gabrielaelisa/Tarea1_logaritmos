@@ -27,10 +27,13 @@ public:
     void mergeSort(const string &atributo, long long l, long long r, bool first);
 
     // merge de mergesort
-    void merge(long long l, long long m, long long r);
+    void merge(const string &atributo, long long l, long long m, long long r);
 
-    // ordena un trozo de tamano menor que M
+    // ordena un trozo de tamano M
     void ordenarTrozo(const string &atributo);
+
+    // va a una linea especificica en el archivo
+    fstream &GoToLine(fstream& file, long long num);
 
 private:
     ofstream outfile;
