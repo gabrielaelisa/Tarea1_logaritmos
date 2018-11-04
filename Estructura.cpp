@@ -130,7 +130,6 @@ void NodoBtree::insertNonFull(Nodo * nodo)
                 break;
             i--;
         }
-  
         // verificar si el hijo está lleno
         if (hijos[i+1]->n == (B-1)/2) 
         { 
@@ -145,31 +144,28 @@ void NodoBtree::insertNonFull(Nodo * nodo)
   
 void NodoBtree::splitChild(int i, NodoBtree *y) 
 { 
-    // Create a new node which is going to store (t-1) keys 
-    // of y 
+    //un nuevo nodo guarda la mitad-1 de las llaves
     NodoBtree *z = new NodoBtree(y->B, y->hoja, atributo); 
-    z->n = B - 1; 
+    z->n = (B -2)/4; 
   
     // Copy the last (t-1) keys of y to z 
-    for (int j = 0; j < t-1; j++) 
-        z->keys[j] = y->keys[j+t]; 
+    for (int j = 0; j < (B -2)/4; j++) 
+        z->llaves[j] = y->llaves[j+(B /4)]; 
   
     // Copy the last t children of y to z 
     if (!y->hoja) 
     { 
-        for (int j = 0; j < t; j++) 
-            z->hijos[j] = y->hijos[j+t]; 
+        for (int j = 0; j < (B/4); j++) 
+            z->hijos[j] = y->hijos[j+(B/4)]; 
     } 
   
     // Reduce the number of keys in y 
-    y->n = t - 1; 
+    y->n = (B -2)/4; 
   
-    // Since this node is going to have a new child, 
-    // create space of new child 
+    // se crea espacio para el nuevo hijo
     for (int j = n; j >= i+1; j--) 
         hijos[j+1] = hijos[j]; 
   
-    // Link the new child to this node 
     hijos[i+1] = z; 
   
     // A key of y will move to this node. Find location of 
@@ -178,8 +174,7 @@ void NodoBtree::splitChild(int i, NodoBtree *y)
         llaves[j+1] = llaves[j]; 
   
     // Copy the middle key of y to this node 
-    llaves[i] = y->llaves[t-1]; 
+    llaves[i] = y->llaves[(B -2)/4]; 
   
-    // Increment count of keys in this node 
     n = n + 1; 
 } 
