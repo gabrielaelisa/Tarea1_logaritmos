@@ -33,14 +33,14 @@ class EstructuraBtree: public Estructura
 public:
     
     //constructor recibe el atributo por el cual se ordenara al insertar
-    explicit EstructuraBtree(long long M, string atributo);
+    explicit EstructuraBtree(string atributo);
 
     void add_nodo(Nodo *nodo);
     
     /* buscaremos una valor perteneciente a la llave
      * ej id, Value(506)
      */
-    BtreeNode * buscar(string key, Value* val);
+    NodoBtree * buscar(string key, Value* val);
 
     /* no hace nada, el btree ya esta ordenado
      * por el atributo que le pasamos en el constructor
@@ -50,30 +50,30 @@ public:
 private:
     //tamaño del bloque
     int B= 1024; // 1 kbyte
-    int num; //número de bloques
     string atributo;
-    BtreeNode *root; // puntero al root node
+    NodoBtree *root; // puntero al root node
     
 
 };
 
 // Nodo del Btree
-class BtreeNode 
+class NodoBtree 
 { 
     Nodo ** llaves;  // arreglo de llaves
     int B; //rango de claves
-    BtreeNode ** hijos; // arreglo de punteros a hijos
+    NodoBtree ** hijos; // arreglo de punteros a hijos
     int n;     // numero de llaves
     bool hoja; //es verdadero si el nodo es una hoja 
+    string atributo;
 
 public: 
-    BtreeNode(int _B, bool _leaf);   // Constructor 
+    NodoBtree(int _B, bool _leaf, string atributo);   // Constructor 
     
-    BtreeNode *buscar(int k);
+    NodoBtree *buscar(int k);
 
     void insertNonFull(Nodo * nodo); 
   
-    void splitChild(int i, BtreeNode *y);  
+    void splitChild(int i, NodoBtree *y);  
   
 // con esto se puede acceder a campos privados del Btree
 friend class EstructuraBtree; 

@@ -53,14 +53,25 @@ void EstructuraArchivo::ordenar(const string &atributo, long long M) {
 /* implementacion del constructor de btree
  * por razones de implementacion ausmimos que B cabe 10000 en M
  */
-EstructuraBtree::EstructuraBtree( long long M, string atr): atributo(atr) {}
+EstructuraBtree::EstructuraBtree(string atr): atributo(atr) {}
+
+ 
+NodoBtree::NodoBtree(int _B, bool _hoja, string atributo) 
+{ 
+    // Copy the given minimum degree and leaf property 
+    B=_B;
+    hoja = _hoja; 
+    llaves = (Nodo **)malloc(sizeof(Nodo*)*(((B-1)/2)+1)); 
+    hijos = new NodoBtree *[((B-1)/2)+1]; 
+    n = 0; 
+} 
 
 void EstructuraBtree::add_nodo(Nodo* nodo) 
 { 
     // si el arbol esta vacío 
     if (root == NULL) 
     { 
-        root = new BtreeNode(B, true); 
+        root = new NodoBtree(B, true, atributo); 
         root->llaves[0] = nodo;  // inserta llave
         root->n = 1;  // hay 1 llave
     } 
@@ -70,7 +81,7 @@ void EstructuraBtree::add_nodo(Nodo* nodo)
         // la raiz esta llena tiene B-1/2 llaves
         if (root->n == (B-1)/2) 
         { 
-            BtreeNode *s = new BtreeNode(B, false); 
+            NodoBtree *s = new NodoBtree(B, false, atributo); 
             // la raiz antigua es hija de la nueva 
             s->hijos[0] = root; 
             s->splitChild(0, root); 
@@ -82,74 +93,72 @@ void EstructuraBtree::add_nodo(Nodo* nodo)
             if (!thisval.compare(thisval,newval)) 
                 i++; 
             s->hijos[i]->insertNonFull(nodo); 
-  
-            // Change root 
-            root = s; 
+            root = s; // se cambia la raiz
         } 
-        else  // If root is not full, call insertNonFull for root 
+        else 
             root->insertNonFull(nodo); 
     } 
 } 
   
 //se inserta una nueva llave en este nodo, que no esta lleno
-void BtreeNode::insertNonFull(Nodo * nodo) 
+void NodoBtree::insertNonFull(Nodo * nodo) 
 { 
-    // Initialize index as index of rightmost element 
+    Value newval= nodo->mymap.Find(atributo)->second;
     int i = n-1; 
-
     if (hoja) 
     { 
-        // The following loop does two things 
-        // a) Finds the location of new key to be inserted 
-        // b) Moves all greater keys to one place ahead 
-        while (i >= 0 && llaves[i] > k) 
-        { 
+        //encuentra la posicion de la nueva llave y realoca a los mayores
+        while (i >= 0) 
+        {   
+            Value thisval= llaves[i]->mymap.Find(atributo)->second;
+            if(!thisval.compare(thisval, newval))
+                break;
             llaves[i+1] = llaves[i]; 
             i--; 
         } 
-  
-        // Insert the new key at found location 
-        llaves[i+1] = k; 
+        //se inserta la nueva llave en la posicion encontrada
+        llaves[i+1] = nodo; 
         n = n+1; 
     } 
-    else // If this node is not leaf 
+    else 
     { 
         // Find the child which is going to have the new key 
-        while (i >= 0 && llaves[i] > k) 
-            i--; 
+        while (i >= 0)
+        {
+            Value thisval= llaves[i]->mymap.Find(atributo)->second;
+            if(!thisval.compare(thisval, newval))
+                break;
+            i--;
+        }
   
-        // See if the found child is full 
-        if (C[i+1]->n == 2*t-1) 
+        // verificar si el hijo está lleno
+        if (hijos[i+1]->n == (B-1)/2) 
         { 
-            // If the child is full, then split it 
-            splitChild(i+1, C[i+1]); 
-  
-            // After split, the middle key of C[i] goes up and 
-            // C[i] is splitted into two.  See which of the two 
-            // is going to have the new key 
-            if (keys[i+1] < k) 
+            splitChild(i+1, hijos[i+1]); 
+            Value thisval= llaves[i+1]->mymap.Find(atributo)->second;
+            if (!thisval.compare(thisval,newval)) 
                 i++; 
         } 
-        C[i+1]->insertNonFull(k); 
+        hijos[i+1]->insertNonFull(nodo); 
     } 
 } 
   
-void BtreeNode::splitChild(int i, BtreeNode *y) 
+void NodoBtree::splitChild(int i, NodoBtree *y) 
 { 
     // Create a new node which is going to store (t-1) keys 
     // of y 
-    BtreeNode *z = new BtreeNode(y->t, y->leaf); 
-    z->n = t - 1; 
+    NodoBtree *z = new NodoBtree(y->B, y->hoja, atributo); 
+    z->n = B - 1; 
   
     // Copy the last (t-1) keys of y to z 
     for (int j = 0; j < t-1; j++) 
         z->keys[j] = y->keys[j+t]; 
   
     // Copy the last t children of y to z 
-    if (y->leaf == false) 
+    if (!y->hoja) 
     { 
         for (int j = 0; j < t; j++) 
-            z->C[j] = y->C[j+t]; 
+            z->hijos[j] = y->hijos[j+t]; 
     } 
   
     // Reduce the number of keys in y 
@@ -158,18 +167,18 @@ void BtreeNode::splitChild(int i, BtreeNode *y)
     // Since this node is going to have a new child, 
     // create space of new child 
     for (int j = n; j >= i+1; j--) 
-        C[j+1] = C[j]; 
+        hijos[j+1] = hijos[j]; 
   
     // Link the new child to this node 
-    C[i+1] = z; 
+    hijos[i+1] = z; 
   
     // A key of y will move to this node. Find location of 
     // new key and move all greater keys one space ahead 
     for (int j = n-1; j >= i; j--) 
-        keys[j+1] = keys[j]; 
+        llaves[j+1] = llaves[j]; 
   
     // Copy the middle key of y to this node 
-    keys[i] = y->keys[t-1]; 
+    llaves[i] = y->llaves[t-1]; 
   
     // Increment count of keys in this node 
     n = n + 1; 
