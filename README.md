@@ -29,3 +29,14 @@ Ej:
 ```
 $ ./mainP1 6
 ```
+```
+$ ./mainP1 6 15625
+```
+### P2 
+Recibe N y la columna por la cual se desea ordenar
+Ej:
+
+Ej:
+```
+$ ./mainP2 3 id
+```
