@@ -14,27 +14,27 @@ using namespace std;
  * Pobla una Database dummy para la parte c)
  * Se basa en la estructura de la tabla Consumidor
  */
-void agregarNodosADatabase(Database &D, int N) {
-    int rutBase = 999000;
-    int rutStep = 11;
-    int puntajeMaximo = 50000;
-    int cantidadDeElementos = N;
-    int ruts[cantidadDeElementos];
-    int ids[cantidadDeElementos];
-    for (int i = 0; i < cantidadDeElementos; ++i) {
-        ids[i] = i + 1;
+void agregarNodosADatabase(Database &D, long N) {
+    long rutBase = 999000;
+    long rutStep = 11;
+    long puntajeMaximo = 50000;
+    long cantidadDeElementos = N;
+    long ids[cantidadDeElementos];
+    long ruts[cantidadDeElementos];
+    for (long i = 0; i < cantidadDeElementos; ++i) {
         ruts[i] = rutBase + i * rutStep;
+        ids[i] = i;
     }
     string keys[] = {"id", "rut", "puntosAcumulados"};
     default_random_engine generator;
-    uniform_int_distribution<int> genCodVerRut(0, 9);
-    uniform_int_distribution<int> genPuntaje(0, puntajeMaximo);
-    for (int i = cantidadDeElementos - 1; i >= 0; i--) {
-        uniform_int_distribution<int> distribution(0, i);
-        int indiceRut = distribution(generator);
-        int indiceId = distribution(generator);
-        int rut = ruts[indiceRut];
-        int id = ids[indiceId];
+    uniform_int_distribution<long> genCodVerRut(0, 9);
+    uniform_int_distribution<long> genPuntaje(0, puntajeMaximo);
+    for (long i = cantidadDeElementos - 1; i >= 0; i--) {
+        uniform_int_distribution<long> distribution(0, i);
+        long indiceRut = distribution(generator);
+        long indiceId = distribution(generator);
+        long rut = ruts[indiceRut];
+        long id = ids[indiceId];
         ruts[indiceRut] = ruts[i];
         ids[indiceId] = ids[i];
         Value myvals[] = {Value(id), Value(to_string(rut) + "-" + to_string(genCodVerRut(generator))), Value(genPuntaje(generator))};
