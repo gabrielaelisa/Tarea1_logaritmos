@@ -72,17 +72,18 @@ int main(int argc, char *argv[]) {
     if (argc == 3) {
         M = stoull(argv[2]);
     }
+
     /*
      * Primero, se hacen las pruebas de insercion
      */
-    cout << "Insertando " << to_string(N) << " elementos, en " << to_string(pruebas) << " pruebas" << endl;
+    cout << "Insertando " << to_string(N) << " elementos, en " << to_string(pruebas) << " pruebas [resultados en nanosegundos]" << endl;
     for (int i = 0; i < pruebas; ++i) {
         auto begin = std::chrono::high_resolution_clock::now();
         EstructuraArchivo testEstructura("test_p1_c", M);
         Database testDatabase(&testEstructura);
         agregarNodosADatabase(testDatabase, N);
         auto end = std::chrono::high_resolution_clock::now();
-        std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count() << "ns" << std::endl;
+        std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count() <<  std::endl;
     }
 
     /*

@@ -98,17 +98,15 @@ bool Nodo::equal(Nodo * otro_nodo){
     // this map
     map<string, Value> tm= fila;
     //tamaños diferentes
-    if(tm.size() != om.size())
-    return false; 
+    if(tm.size() != om.size()){return false;} 
 
     typename map<string, Value>::iterator i, j;
-    for(i = tm.begin(), j = om.begin(); i != om.end(); ++i, ++j)
+    for(i = tm.begin(), j = om.begin(); j != om.end(); i++, j++)
     {
         Value v1 = i->second;
         Value v2 = j->second;
-        if(v1.compare(v1,v2)!=0) return false;
+        if(Value::compare(v1,v2)!=0){return false;}
         
     }
-
     return true;
 }
