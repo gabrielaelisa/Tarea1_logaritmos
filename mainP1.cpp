@@ -19,8 +19,10 @@ void agregarNodosADatabase(Database &D, long N) {
     long rutStep = 11;
     long puntajeMaximo = 50000;
     long cantidadDeElementos = N;
-    long ids[cantidadDeElementos];
-    long ruts[cantidadDeElementos];
+    vector<long> ids;
+    vector<long> ruts;
+    ids.resize(cantidadDeElementos);
+    ruts.resize(cantidadDeElementos);
     for (long i = 0; i < cantidadDeElementos; ++i) {
         ruts[i] = rutBase + i * rutStep;
         ids[i] = i;
