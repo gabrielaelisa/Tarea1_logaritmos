@@ -10,8 +10,8 @@ class Value {
 public:
 
     enum DATA_TYPE {
-        STRING,
-        INT
+        STRING = 1,
+        INT = 2
     };
 
     // existen tres constructores, uno default, uno para el type string,

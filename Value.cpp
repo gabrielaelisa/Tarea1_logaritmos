@@ -18,8 +18,8 @@ void *Value::val() {
 int Value::compare(Value v1, Value v2) {
     Value::DATA_TYPE type1 = v1.type();
     Value::DATA_TYPE type2 = v2.type();
-    //if (type1 != type2)
-    //    throw runtime_error("Values no coinciden");
+    if (type1 != type2)
+        throw runtime_error("Values no coinciden");
 
     switch (type1) {
         case Value::DATA_TYPE::INT:
