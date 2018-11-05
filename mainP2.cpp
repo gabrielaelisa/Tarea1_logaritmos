@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
         t.add_nodo(nodos[i]);
     }
     auto end = std::chrono::high_resolution_clock::now();
+    free(nodos);
     std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end-begin).count() << "ns" << std::endl;
 
     /*
