@@ -14,8 +14,9 @@ error <- round(summary(fit)$coef[2,2],1)
 ## graficar
 p <-ggplot(datos_ord,aes(x, y)) 
 p + geom_point(size=2) + 
-  ggtitle("Gráfico log log de Inserciones vs Tiempo de Ejecución") +
-  scale_x_continuous(trans='log10', name="Número de Inserciones",labels = comma,breaks = c(0,10,100,1000,10000,100000,1000000,10000000)) + 
+  ggtitle("Gráfico Log Logl
+          de Número de Elementos v/s Tiempo de Ordenación") +
+  scale_x_continuous(trans='log10', name="Número de Elementos",labels = comma,breaks = c(0,10,100,1000,10000,100000,1000000,10000000)) + 
   scale_y_continuous(trans='log10',name = "Tiempo de Ejecución (nanosegundos)",labels = comma) + 
   annotation_logticks() +
   theme_bw() +

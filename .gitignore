@@ -8,6 +8,8 @@ test_p1_c
 *.cbp
 tempResult
 *.svg
+R/*.pdf
+R/.Rhistory
 
 # Prerequisites
 *.d
