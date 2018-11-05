@@ -4,6 +4,10 @@ mainP2
 cmake-build-debug/
 .idea/
 test_p1_c
+.Rhistory
+*.cbp
+tempResult
+*.svg
 
 # Prerequisites
 *.d
