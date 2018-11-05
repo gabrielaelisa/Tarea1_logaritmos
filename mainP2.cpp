@@ -1,6 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include <random>
+#include <fstream>
 
 #include "Nodo.h"
 #include "Database.h"
@@ -16,4 +17,7 @@ int main(int argc, char *argv[])
     Nodo nodo2(keys, myvals2, 3);
     t.add_nodo(&nodo);
     t.add_nodo(&nodo2);
+    Nodo * result=t.buscar(&nodo2);
+    string s=result->como_linea();
+    cout << "\n el resultado de la linea es " << s << endl;
 }

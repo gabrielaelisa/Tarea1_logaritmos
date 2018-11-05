@@ -316,17 +316,19 @@ Nodo* NodoBtree::buscar(Nodo * nodo)
     while (i < n){
         Value thisval= llaves[i]->mymap().find(atributo)->second; 
         //newval>thisval
-        if(newval.compare(newval,thisval)!=1)
+        if(Value::compare(newval,thisval)!=1){
             break;
+        }
         i++; 
     }
     
     
-    if (llaves[i]->equal(nodo)) 
+    if ((llaves[i]->equal(nodo))==true){
         return llaves[i]; 
+        }
   
-    if (hoja == true) 
-        return NULL; 
+    else if (hoja == true){
+        return NULL; }
   
     return hijos[i]->buscar(nodo); 
 } 
