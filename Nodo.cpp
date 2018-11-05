@@ -91,3 +91,24 @@ string Nodo::como_linea() {
     }
     return mystr;
 }
+
+bool Nodo::equal(Nodo * otro_nodo){
+    // otro map
+    map<string, Value> om= otro_nodo->mymap();
+    // this map
+    map<string, Value> tm= fila;
+    //tamaños diferentes
+    if(tm.size() != om.size())
+    return false; 
+
+    typename map<string, Value>::iterator i, j;
+    for(i = tm.begin(), j = om.begin(); i != om.end(); ++i, ++j)
+    {
+        Value v1 = i->second;
+        Value v2 = j->second;
+        if(v1.compare(v1,v2)!=0) return false;
+        
+    }
+
+    return true;
+}

@@ -26,6 +26,9 @@ public:
     // se utiliza en la implementacion de la clase database
     string como_linea();
 
+    // revisa si dos nodos son iguales
+    bool equal(Nodo * otro_nodo);
+    
 private:
     map<string, Value> fila;
     int mylen;
