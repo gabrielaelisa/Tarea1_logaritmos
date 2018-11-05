@@ -27,89 +27,88 @@ struct cmpByValueCompare {
 
 void EstructuraArchivo::merge(const string &atributo, long long l, long long m, long long r) {
 
-    long long i, j, k;
+    long long i, j;
+
+    // se obtiene la cantidad de elementos por lado
     long long n1 = m - l + 1;
     long long n2 =  r - m;
 
-//    /* create temp arrays */
-//    int L[n1], R[n2];
-
+    // archivos que representan el arreglo de la izquierda y derecha
     fstream L(filename);
     fstream R(filename);
 
-//
-//    /* Copy data to temp arrays L[] and R[] */
-//    for (i = 0; i < n1; i++)
-//        L[i] = arr[l + i];
-//    for (j = 0; j < n2; j++)
-//        R[j] = arr[m + 1 + j];
-
+    // archivo de resultado
     ofstream K("tempResult");
 
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray
-    j = 0; // Initial index of second subarray
-//    k = l; // Initial index of merged subarray
+    i = 0; // indice inicial del arreglo de la izquierda
+    j = 0; // indice inicial del arreglo de la derecha
 
+    // se posiciona en los lugares correspondientes del archivo
     GoToLine(L, l);
     GoToLine(R, m + 1);
 
     string inputL, inputR;
 
+
+    // merge
     while (i < n1 && j < n2) {
 
+        // se guarda posicion actual
         streampos oldposL = L.tellg();
         streampos oldposR = R.tellg();
 
+        // se leen las lineas
         getline(L, inputL);
         getline(R, inputR);
 
+        // se crean nodos
         Nodo nodoL(inputL);
         Nodo nodoR(inputR);
 
+        // se obtienen valores
         Value valL = nodoL.mymap()[atributo];
         Value valR = nodoR.mymap()[atributo];
 
         if (Value::compare(valL, valR) <= 0) { // L[i] <= R[j]
             K << inputL << endl; // arr[k] = L[i];
-            R.seekg(oldposR);
+            R.seekg(oldposR); // como R no avanza vuelve una linea
             i++;
         }
         else {
             K << inputR << endl; // arr[k] = R[j];
-            L.seekg(oldposL);
+            L.seekg(oldposL); // como L no avanza vuelve una linea
             j++;
         }
     }
 
-    /* Copy the remaining elements of L[], if there
-       are any */
+    // se copian los elementos restantes en L si quedan
     while (i < n1) {
         getline(L, inputL);
         K << inputL << endl;
         i++;
     }
 
-    /* Copy the remaining elements of R[], if there
-       are any */
+    // se copian los elementos restantes en R si quedan
     while (j < n2) {
         getline(R, inputR);
         K << inputR << endl;
         j++;
     }
 
-    string output = ".";
 
+    // se copia el resultado en el archivo original
+    string output;
     fstream file(filename);
     ifstream res("tempResult");
-
     GoToLine(file, l);
-
+    getline(res, output);
     while (!output.empty()) {
-        getline(res, output);
         file << output << endl;
+        getline(res, output);
     }
 
+
+    // se borra el archivo temporal
     remove("tempResult");
 }
 
@@ -148,7 +147,7 @@ void EstructuraArchivo::mergeSort(const string &atributo, long long l, long long
     if (first)
         this->outfile.seekp(0, std::ofstream::beg);
 
-    if (r - l >= M) { // si el pedazo a ordenar es mayor a M
+    if (r - l > M) { // si el pedazo a ordenar es mayor a M
 
         long long m = (l + (r - l) / 2);
 
@@ -316,17 +315,19 @@ Nodo* NodoBtree::buscar(Nodo * nodo)
     while (i < n){
         Value thisval= llaves[i]->mymap().find(atributo)->second; 
         //newval>thisval
-        if(newval.compare(newval,thisval)!=1)
+        if(Value::compare(newval,thisval)!=1){
             break;
+        }
         i++; 
     }
     
     
-    if (llaves[i]->equal(nodo)) 
+    if ((llaves[i]->equal(nodo))==true){
         return llaves[i]; 
+        }
   
-    if (hoja == true) 
-        return NULL; 
+    else if (hoja == true){
+        return NULL; }
   
     return hijos[i]->buscar(nodo); 
 } 
