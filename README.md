@@ -7,7 +7,7 @@ Tarea 1 del curso Diseño y Análisis de Algoritmos
 * Gabriela Mendoza
 
 ## Requisitos
-La tarea fue resuelta en C++11. Para compilar se requiere CMake versión >= 3.10.2.
+La tarea fue resuelta en C++11. Para compilar se requiere CMake versión >= 3.0.0.
 
 ## Compilación
 Para compilar se deben ejecutar los siguientes comandos:
@@ -24,7 +24,7 @@ Esto genera los ejecutables para cada una de las preguntas.
 ## Ejecución
 Para ejecutar se usa el siguiente comando para cada pregunta:
 ### P1
-Recibe N, que indica ingresar 10^N datos, y opcionalmente M (default = 100000) cantidad de memoria.
+Recibe N, que indica ingresar 10^N datos, y opcionalmente M (default = 100000) cantidad de memoria. Luego estos datos los ordena. Para que el ordenamiento funcione correctamente, se toma como supuesto que N / M es múltiplo de 2.
 
 Ej:
 ```
