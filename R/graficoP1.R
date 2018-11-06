@@ -6,9 +6,11 @@ library(ggplot2)
 datos <- read_csv("datosp1c.csv")
 
 ## regresion lineal
-fit = lm(y~x, data=datos)
-slope <- round(fit$coefficients["x"],1)
-error <- round(summary(fit)$coef[2,2],1)
+fit = lm(log(y)~log(x), data=datos)
+slope <- round(fit$coefficients["log(x)"],3)
+error <- round(summary(fit)$coef[2,2],3)
+r_squared = summary(fit)$r.squared
+p_value = lmp(fit)
 
 ## graficar
 p <-ggplot(datos,aes(x, y)) 
@@ -20,7 +22,8 @@ p + geom_point(size=2) +
   theme_bw() +
   geom_boxplot(aes(group = x)) + 
   geom_smooth(method="lm") + 
-  annotate("text",x=10000/3,y = 10000000, hjust=0,label = paste('Correlación = ', round(cor(datos$x, datos$y),2))) +
-  annotate("text",x=10000/3,y = 1000000*5, hjust=0,label = paste('Pendiente = ',slope, " ± ",error))
+  annotate("text",x=10000/2,y = 10000000, hjust=0,label = paste('R² = ', round(r_squared,3))) +
+  annotate("text",x=10000/2,y = 1000000*5, hjust=0,label = paste('Valor p = ',formatC(p_value, format = "e", digits = 2))) +
+  annotate("text",x=10000/2,y = 1000000*2.5, hjust=0,label = paste('Pendiente = ',slope, " ± ",error))
 
 
