@@ -4,6 +4,9 @@ mainP2
 cmake-build-debug/
 .idea/
 test_p1_c
+test_p3_b_consumidor
+test_p3_b_producto
+test_p3_b_query
 .Rhistory
 *.cbp
 tempResult
