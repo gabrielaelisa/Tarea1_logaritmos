@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
             getline(tabla_producto, producto);
             size_t index_id_producto = producto.find("id");
             producto.replace(index_id_producto, 2, "id_producto");
-            query << consumidor << " " << producto << endl;
+            query << consumidor << ", " << producto << endl;
         }
 
         Value puntosAcumulados = nodo_consumidor.mymap()["puntosAcumulados"];
@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
         while (Value::compare(puntosNec, puntosAcumulados) <= 0) {
             size_t index_id_producto = producto.find("id");
             producto.replace(index_id_producto, 2, "id_producto");
-            query << consumidor << " " << producto << endl;
+            query << consumidor << ", " << producto << endl;
 
             getline(tabla_producto, producto);
             if (producto.empty()) break;
