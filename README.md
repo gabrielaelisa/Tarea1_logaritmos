@@ -25,6 +25,7 @@ Esto genera los ejecutables para cada una de las preguntas.
 Para ejecutar se usa el siguiente comando para cada pregunta:
 ### P1
 Recibe N, que indica ingresar 10^N datos, y opcionalmente M (default = 100000) cantidad de memoria.
+
 Ej:
 ```
 $ ./mainP1 6
@@ -34,9 +35,15 @@ $ ./mainP1 6 15625
 ```
 ### P2 
 Recibe N y la columna por la cual se desea ordenar
-Ej:
 
 Ej:
 ```
 $ ./mainP2 3 id
+```
+### P3
+Recibe C y P, que indican la cantidad de consumidores y productos, y opcionalmente M.
+
+Ej:
+```
+$ ./mainP3 1 1 5
 ```
